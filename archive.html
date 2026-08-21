@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>過去のお知らせ一覧｜桃山高校文化祭</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Sans", sans-serif;
+            background: linear-gradient(180deg, #ffd1dc 0%, #ffffff 40%, #ffffff 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #ff69b4; text-decoration: none; font-weight: bold; }
+        .back-link:hover { text-decoration: underline; }
+        .news-section { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto; animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        .news-section h2 { font-size: 22px; border-bottom: 2px solid #ffd1dc; padding-bottom: 5px; margin-bottom: 15px; text-align: center; }
+        .news-list { list-style: none; }
+        .news-item { padding: 12px 5px; border-bottom: 1px dashed #ddd; }
+        .news-item a { color: #333; text-decoration: none; display: flex; align-items: center; }
+        .news-item a:hover { color: #ff69b4; }
+        .news-date { font-size: 13px; color: #888; margin-right: 15px; min-width: 75px; }
+        .news-title { flex-grow: 1; font-size: 15px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 0 auto;">
+        <a href="index.html" class="back-link">＜ トップへ戻る</a>
+    </div>
+    <section class="news-section">
+        <h2>お知らせ一覧</h2>
+        <ul class="news-list" id="news-list"></ul>
+    </section>
+
+    <script src="./setting.js"></script>
+    <script>
+        const listElement = document.getElementById('news-list');
+        const articles = newsText.split('---').filter(text => text.trim() !== '');
+        articles.forEach((article, index) => {
+            const lines = article.trim().split('\n');
+            const date = lines[0].trim();
+            const title = lines[1].trim();
+            const li = document.createElement('li');
+            li.className = 'news-item';
+            li.innerHTML = `
+                <a href="detail.html?id=${index}">
+                    <span class="news-date">${date}</span>
+                    <span class="news-title">${title}</span>
+                    <span>＞</span>
+                </a>
+            `;
+            listElement.appendChild(li);
+        });
+    </script>
+</body>
+</html>
