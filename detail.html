@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせ詳細｜桃山高校文化祭</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Sans", sans-serif;
+            background: linear-gradient(180deg, #ffd1dc 0%, #ffffff 20%, #ffffff 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #ff69b4; text-decoration: none; font-weight: bold; }
+        .back-link:hover { text-decoration: underline; }
+        .detail-box { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto; animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        .detail-date { color: #888; font-size: 14px; margin-bottom: 10px; }
+        .detail-title { font-size: 24px; border-bottom: 2px solid #ffd1dc; padding-bottom: 10px; margin-bottom: 20px; line-height: 1.4; }
+        .detail-content { font-size: 16px; line-height: 1.8; color: #444; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 0 auto;">
+        <a href="javascript:history.back()" class="back-link">＜ 戻る</a>
+    </div>
+    <div class="detail-box">
+        <div class="detail-date" id="news-date"></div>
+        <h1 class="detail-title" id="news-title"></h1>
+        <div class="detail-content" id="news-content"></div>
+    </div>
+
+    <script src="./setting.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const articles = newsText.split('---').filter(text => text.trim() !== '');
+
+        if (id !== null && articles[id]) {
+            const lines = articles[id].trim().split('\n');
+            const date = lines[0].trim();
+            const title = lines[1].trim();
+            const content = lines.slice(2).join('<br>');
+
+            document.getElementById('news-date').innerText = date;
+            document.getElementById('news-title').innerText = title;
+            document.getElementById('news-content').innerHTML = content;
+        } else {
+            document.getElementById('news-title').innerText = "お知らせが見つかりません";
+        }
+    </script>
+</body>
+</html>
