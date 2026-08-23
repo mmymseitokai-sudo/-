@@ -4,8 +4,8 @@ export async function onRequest(context) {
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // ★★★ ここで好きな「ユーザー名」と「パスワード」を設定します ★★★
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const USER = "momo";        // ユーザー名
-  const PASS = "momo2026";    // パスワード
+  const USER = "mmymbnksi";        // ユーザー名
+  const PASS = "momo";    // パスワード
 
 
   // --- 以下は認証処理のプログラム（変更不要です） ---
