@@ -17,26 +17,6 @@
             padding-top: 60px;
         }
 
-        /* 🔒 パスワード画面 */
-        #lock-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, #ffd1dc 0%, #ffffff 100%);
-            z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease;
-        }
-        .lock-box {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center; width: 90%; max-width: 350px;
-        }
-        .lock-title { font-size: 20px; margin-bottom: 20px; color: #333; font-weight: bold; }
-        .lock-input { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ffd1dc; border-radius: 8px; margin-bottom: 15px; outline: none; text-align: center; }
-        .lock-btn { background: #ff7eb3; color: white; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 25px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 10px rgba(255, 126, 179, 0.3); }
-        .lock-btn:active { transform: scale(0.95); }
-        .error-msg { color: #ff4757; font-size: 14px; margin-top: 15px; display: none; }
-
         /* ヘッダー＆メニュー */
         .fixed-header {
             position: fixed; top: 0; left: 0; width: 100%; height: 60px;
@@ -124,17 +104,6 @@
 </head>
 <body id="top">
 
-    <!-- 🔒 ロック画面 -->
-    <div id="lock-screen">
-        <div class="lock-box">
-            <div class="lock-title">🔐 サイトパスワード</div>
-            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">関係者専用ページです。<br>パスワードを入力してください。</p>
-            <input type="password" id="pass-input" class="lock-input" placeholder="パスワード">
-            <button class="lock-btn" onclick="checkPassword()">サイトを見る</button>
-            <p id="pass-error" class="error-msg">パスワードが違います</p>
-        </div>
-    </div>
-
     <!-- 固定ヘッダー -->
     <header class="fixed-header">
         <a href="#top" class="header-title">桃山高校文化祭</a>
@@ -199,7 +168,6 @@
     <script src="./setting.js"></script>
 
     <script>
-        // 設定反映
         document.getElementById('display-year').innerText = FESTIVAL_CONFIG.year;
         document.getElementById('display-slogan').innerText = FESTIVAL_CONFIG.slogan;
         
@@ -210,7 +178,7 @@
         document.getElementById('btn-marche-link').href = FESTIVAL_CONFIG.marcheUrl;
         document.getElementById('menu-marche-link').href = FESTIVAL_CONFIG.marcheUrl;
 
-        // 過去の文化祭リンク追加
+        // 過去の文化祭リンク
         const menuList = document.getElementById('menu-list');
         if (FESTIVAL_CONFIG.pastFestivals && FESTIVAL_CONFIG.pastFestivals.length > 0) {
             const divider = document.createElement('li');
@@ -224,29 +192,7 @@
             });
         }
 
-        // パスワード判定
-        const lockScreen = document.getElementById('lock-screen');
-        const passError = document.getElementById('pass-error');
-        
-        if (sessionStorage.getItem('isUnlocked') === 'true') {
-            lockScreen.style.display = 'none';
-        } else {
-            document.body.style.overflow = 'hidden';
-        }
-
-        function checkPassword() {
-            const input = document.getElementById('pass-input').value;
-            if (input === FESTIVAL_CONFIG.password) {
-                sessionStorage.setItem('isUnlocked', 'true');
-                document.body.style.overflow = 'auto';
-                lockScreen.style.opacity = '0';
-                setTimeout(() => { lockScreen.style.display = 'none'; }, 500);
-            } else {
-                passError.style.display = 'block';
-            }
-        }
-
-        // お知らせ読み込み（最新3件＋過去リンク）
+        // お知らせ読み込み
         const listElement = document.getElementById('news-list');
         const moreLinkArea = document.getElementById('more-link-area');
         const articles = newsText.split('---').filter(text => text.trim() !== '');
