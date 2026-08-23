@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃山高校文化祭</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(180deg, #ffd1dc 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+        .box {
+            background: white; padding: 40px 30px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 350px;
+        }
+        input {
+            width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ffd1dc;
+            border-radius: 8px; margin: 15px 0; text-align: center; outline: none;
+        }
+        button {
+            width: 100%; padding: 12px; font-size: 16px; background: #ff7eb3;
+            color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2 style="color: #333; margin-bottom: 5px;">🔐 関係者専用</h2>
+        <p style="font-size: 13px; color: #666;">合言葉を入力してください</p>
+        <input type="text" id="pass" placeholder="合言葉" autocomplete="off">
+        <button onclick="go()">サイトに入る</button>
+    </div>
+
+    <script>
+        function go() {
+            const pass = document.getElementById('pass').value.trim();
+            if (pass) {
+                // 入力された合言葉のフォルダへ直接ジャンプ！
+                // （コード内にパスワードが1文字も書かれていないため、絶対にバレません）
+                window.location.href = './' + pass + '/index.html';
+            }
+        }
+        document.getElementById('pass').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') go();
+        });
+    </script>
+</body>
+</html>
